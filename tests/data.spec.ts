@@ -38,5 +38,5 @@ test("Return title, link and price for each Product", async ({ page }) => {
     report = report + cardInformation;
   }
 
-  fs.writeFileSync("products.text", report);
+  fs.writeFileSync("products.txt", report);
 });
