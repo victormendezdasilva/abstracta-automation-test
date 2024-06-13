@@ -1,14 +1,14 @@
-import { ProductPage } from "../page-objects/product-page";
+import { HomePage } from "../utils/page-objects/product-page";
 import { test } from "@playwright/test";
 import fs from "fs";
 
 test("Return title, link and price for each Product", async ({ page }) => {
-  const productPage = new ProductPage(page);
+  const homePage = new HomePage(page);
   let report = "";
 
-  await productPage.navigateToPage();
+  await homePage.navigateToPage();
 
-  const cardsFromPageOne = await productPage.getAllProductsFromActivePage();
+  const cardsFromPageOne = await homePage.getAllProductsFromActivePage();
 
   for (const card of cardsFromPageOne) {
     const cardTitle = card.locator("h4.card-title a").innerText();
@@ -22,9 +22,9 @@ test("Return title, link and price for each Product", async ({ page }) => {
     report = report + cardInformation;
   }
 
-  await productPage.goToNextProductPage();
+  await homePage.goToNextProductPage();
 
-  const cardsFromPageTwo = await productPage.getAllProductsFromActivePage();
+  const cardsFromPageTwo = await homePage.getAllProductsFromActivePage();
 
   for (const card of cardsFromPageTwo) {
     const cardTitle = card.locator("h4.card-title a").innerText();
