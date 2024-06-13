@@ -1,11 +1,10 @@
 import { test, expect, Page } from "@playwright/test";
 import { LoginModal } from "../utils/page-objects/components/login-modal";
 import { HomePage } from "../utils/page-objects/product-page";
-import { generateRandomString, signUp } from "../utils/utils";
 
 test.describe("Login", () => {
-  let randomUsername = generateRandomString(8);
-  let randomPassword = generateRandomString(5);
+  let validUsername = "automation-user-victor";
+  let validPassword = "Password123";
 
   let productPage: HomePage;
   let loginModal: LoginModal;
@@ -18,17 +17,11 @@ test.describe("Login", () => {
     productPage = new HomePage(page);
     loginModal = new LoginModal(page);
 
-    await signUp(randomUsername, randomPassword);
-
     await productPage.navigateToPage();
   });
 
   test.beforeEach(async () => {
     await productPage.header.clickToLogInHeader();
-  });
-
-  test.afterEach(async () => {
-    await loginModal.clickClose();
   });
 
   test("should display login modal title", async () => {
@@ -47,19 +40,19 @@ test.describe("Login", () => {
   });
 
   test("should close the login modal when close button is clicked", async () => {
-    await loginModal.clickClose();
+    await loginModal.close();
     expect(await loginModal.getModalTitle()).not.toBeVisible();
     await productPage.header.clickToLogInHeader();
     expect(await loginModal.getModalTitle()).toBeVisible();
   });
 
   test("should successfully log in with valid credentials", async () => {
-    await loginModal.enterUsername(randomUsername);
-    await loginModal.enterPassword("randomPassword");
+    await loginModal.enterUsername(validUsername);
+    await loginModal.enterPassword(validPassword);
     await loginModal.clickLogin();
 
     expect(await productPage.header.getWelcomeUserMessage()).toBe(
-      `Welcome ${randomUsername}`
+      `Welcome ${validUsername}`
     );
   });
 });

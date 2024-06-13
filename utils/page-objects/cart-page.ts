@@ -24,6 +24,11 @@ export class CartPage {
     return new SuccessPurchaseModal(this.page.locator(modalSelector));
   }
 
+  async getPlaceOrderButton() {
+    await this.page.waitForSelector("button[data-target='#orderModal']");
+    return this.page.locator("button[data-target='#orderModal']");
+  }
+
   async placeOrder(orderDetails: OrderDetails) {
     await this.page.locator("button[data-target='#orderModal']").click();
 

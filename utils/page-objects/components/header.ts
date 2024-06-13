@@ -17,11 +17,15 @@ export class Header {
   }
 
   async clickToContactHeader() {
-    await this.page.click("a[href='#']:contains('Contact')");
+    await this.page.click(
+      "#navbarExample > ul > li:nth-child(2) > a[data-target='#exampleModal']"
+    );
   }
 
   async clickToAboutUsHeader() {
-    await this.page.click("a[href='#']:contains('About us')");
+    await this.page.click(
+      "#navbarExample > ul > li:nth-child(3) > a[data-target='#videoModal']"
+    );
   }
 
   async clickToCartHeader() {

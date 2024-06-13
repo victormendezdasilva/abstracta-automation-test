@@ -41,11 +41,9 @@ export class LoginModal {
     ).toBe("logIn()");
 
     await this.page.locator("button.btn-primary").getByText("Log in").click();
-
-    await this.page.reload();
   }
 
-  async clickClose() {
+  async close() {
     await this.page.waitForSelector("#logInModalLabel");
     await this.page
       .locator("#logInModalLabel")
@@ -53,6 +51,3 @@ export class LoginModal {
       .click();
   }
 }
-
-const API_URL = "https://api.demoblaze.com";
-const token = "";
